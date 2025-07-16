@@ -456,6 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useJobs: 0
+  _zombiePrefab: {fileID: 3230723753605358678, guid: 3f59f6f6657e87443a1bcc325cc9717c, type: 3}
 --- !u!4 &1993214800
 Transform:
   m_ObjectHideFlags: 0
