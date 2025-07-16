@@ -79,7 +79,7 @@ public struct ReallyToughParallelJobTransforms : IJobParallelForTransform
 }
 ```
 
-## How to use Burst?
+## How to use Burst Compiler?
 Jobs > Burst > Enable Compilation
 ```
 [BurstCompile]
