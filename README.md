@@ -8,7 +8,6 @@
 ## How to create a Job?
 [Testing.cs](https://github.com/gabrieljacintho/unity-job-system/blob/47beb9463b4f14416fc559b5b29867dd65025520/Assets/Scripts/Testing.cs)
 ```
-[BurstCompile]
 public struct ReallyToughJob : IJob
 {
     public void Execute()
@@ -22,7 +21,6 @@ public struct ReallyToughJob : IJob
 }
 ```
 ```
-[BurstCompile]
 public struct ReallyToughParallelJob : IJobParallelFor
 {
     public NativeArray<float3> PositionArray;
@@ -41,17 +39,10 @@ public struct ReallyToughParallelJob : IJobParallelFor
         {
             MoveYArray[index] = math.abs(MoveYArray[index]);
         }
-
-        float value = 0f;
-        for (int i = 0; i < 1000; i++)
-        {
-            value += math.exp10(math.sqrt(value));
-        }
     }
 }
 ```
 ```
-[BurstCompile]
 public struct ReallyToughParallelJobTransforms : IJobParallelForTransform
 {
     public NativeArray<float> MoveYArray;
@@ -69,14 +60,51 @@ public struct ReallyToughParallelJobTransforms : IJobParallelForTransform
         {
             MoveYArray[index] = math.abs(MoveYArray[index]);
         }
-
-        float value = 0f;
-        for (int i = 0; i < 1000; i++)
-        {
-            value += math.exp10(math.sqrt(value));
-        }
     }
 }
+```
+
+## How to schedule a Job?
+```
+NativeArray<JobHandle> jobHandleArray = new NativeArray<JobHandle>(10, Allocator.Temp);
+
+for (int i = 0; i < 10; i++)
+{
+    JobHandle jobHandle = ReallyToughTaskJob();
+    jobHandleArray[i] = jobHandle;
+}
+
+JobHandle.CompleteAll(jobHandleArray);
+jobHandleArray.Dispose();
+```
+```
+NativeArray<float> moveYArray = new NativeArray<float>(_zombieList.Count, Allocator.TempJob);
+NativeArray<float3> positionArray = new NativeArray<float3>(_zombieList.Count, Allocator.TempJob);
+
+ReallyToughParallelJob job = new ReallyToughParallelJob
+{
+    PositionArray = positionArray,
+    MoveYArray = moveYArray,
+    DeltaTime = Time.deltaTime
+};
+
+job.Schedule(_zombieList.Count, 100).Complete();
+moveYArray.Dispose();
+positionArray.Dispose();
+```
+```
+NativeArray<float> moveYArray = new NativeArray<float>(_zombieList.Count, Allocator.TempJob);
+TransformAccessArray transformAccessArray = new TransformAccessArray(_zombieList.Count);
+
+ReallyToughParallelJobTransforms job = new ReallyToughParallelJobTransforms
+{
+    MoveYArray = moveYArray,
+    DeltaTime = Time.deltaTime
+};
+
+job.Schedule(transformAccessArray).Complete();
+moveYArray.Dispose();
+transformAccessArray.Dispose();
 ```
 
 ## How to use Burst Compiler?
