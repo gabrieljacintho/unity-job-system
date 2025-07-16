@@ -5,7 +5,7 @@
 
 [Tutorial](https://www.youtube.com/watch?v=C56bbgtPr_w)
 
-## How to create a job?
+## How to create a Job?
 [Testing.cs](https://github.com/gabrieljacintho/unity-job-system/blob/47beb9463b4f14416fc559b5b29867dd65025520/Assets/Scripts/Testing.cs)
 ```
 [BurstCompile]
