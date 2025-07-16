@@ -5,7 +5,6 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Jobs;
-using static Testing;
 
 public class Testing : MonoBehaviour
 {
