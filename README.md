@@ -1,7 +1,7 @@
 # Unity Job System
 
 ## Links
-[Unity Job System Documentation](https://docs.unity3d.com/Manual/job-system.html)
+[Documentation](https://docs.unity3d.com/Manual/job-system.html)
 
 [Tutorial](https://www.youtube.com/watch?v=C56bbgtPr_w)
 
